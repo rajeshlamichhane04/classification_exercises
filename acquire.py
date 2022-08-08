@@ -1,27 +1,14 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[21]:
-
-
 import numpy as np
 import pandas as pd
 import env
 import os
 
-
-# In[28]:
-
-
 #get url
-def conn(db):
-    return f'mysql+pymysql://{env.username}:{env.password}@{env.host}/{db}'
+def conn(db, user=env.user, host=env.host, password=env.password):
+    return f'mysql+pymysql://{user}:{password}@{host}/{db}'
 
 
 # Make a function named get_titanic_data that returns the titanic data from the codeup data science database as a pandas data frame. Obtain your data from the Codeup Data Science Database.
-
-# In[29]:
-
 
 #get the sql querry set up
 def new_titanic_data():
@@ -43,12 +30,7 @@ def get_titanic_data():
     return df
 
   
-
-
 # Make a function named get_iris_data that returns the data from the iris_db on the codeup data science database as a pandas data frame. The returned data frame should include the actual name of the species in addition to the species_ids. Obtain your data from the Codeup Data Science Database.
-
-# In[34]:
-
 
 #this function will read iris database 
 def get_iris_data():
@@ -65,15 +47,7 @@ def get_iris_data():
         return df
 
 
-# In[ ]:
-
-
-
-
-
-# #3.Make a function named get_telco_data that returns the data from the telco_churn database in SQL. In your SQL, be sure to join all 4 tables together, so that the resulting dataframe contains all the contract, payment, and internet service options. Obtain your data from the Codeup Data Science Database.
-
-# In[36]:
+#3.Make a function named get_telco_data that returns the data from the telco_churn database in SQL. In your SQL, be sure to join all 4 tables together, so that the resulting dataframe contains all the contract, payment, and internet service options. Obtain your data from the Codeup Data Science Database.
 
 
 #read get_telco_data 
@@ -97,13 +71,6 @@ def get_telco_data():
         return df
 
 
-# In[ ]:
-
-
-
-
-
-# In[ ]:
 
 
 
