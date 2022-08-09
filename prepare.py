@@ -53,3 +53,39 @@ def prep_titanic_data(df):
     train,validate,test=split_data(df)
     return train,validate,test
     
+#telco data
+#clean
+def clean_data(telco):
+    drop_columns = ["contract_type_id","internet_service_type_id","payment_type_id"]
+    telco = telco.drop(columns = drop_columns)
+
+    dummy_df = pd.get_dummies(telco[['gender','partner','dependents','phone_service','multiple_lines','online_security','online_backup','tech_support',
+                                 'streaming_movies','paperless_billing','churn','payment_type', 'internet_service_type',
+                                 'contract_type','device_protection','streaming_tv']], dummy_na = False, drop_first = True)
+    
+    telco = pd.concat([telco,dummy_df], axis = 1)
+    
+    columns = ['gender','partner','dependents','phone_service','multiple_lines','online_security','online_backup','tech_support',
+            'streaming_movies','paperless_billing','payment_type', 'internet_service_type',
+             'contract_type', 'device_protection','streaming_tv']
+
+    telco = telco.drop(columns = columns)
+     
+    return telco
+#split
+def my_train_test_split(telco):
+
+     train, test = train_test_split(telco, test_size=.2, random_state=123, stratify=telco.churn)
+     train, validate = train_test_split(train, test_size=.25, random_state=123, stratify=train.churn)
+
+     return train, validate, test 
+
+#make prep function now
+def prep_get_telco_data(telco):
+    telco = clean_data(telco)
+    train, validate, test = my_train_test_split(telco)
+    return train,validate,test
+
+
+
+
