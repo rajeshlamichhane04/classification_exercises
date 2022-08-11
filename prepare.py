@@ -19,7 +19,7 @@ def clean_iris(df):
     return df
 
 #split funtion
-def split_iris_data():
+def split_iris_data(df):
     train, test = train_test_split(df, test_size=.2, random_state=123, stratify=df.species)
     train,validate = train_test_split(train,test_size = .25, random_state = 123, stratify = train.species )
     return train,validate,test
@@ -31,9 +31,14 @@ def prep_iris_data(df):
     return train,validate,test
 
 
+
+
+
+
+
 #titanic database
 
-def clean_data(df):
+def clean_data_titanic(df):
     df=df.drop(columns = ["embarked","class"])
     df=df.drop(columns = ["age","deck"])
     df.embark_town = df.embark_town.fillna(value = "Southampton")
@@ -43,19 +48,29 @@ def clean_data(df):
 
     return df
 
-def split_data(df):
+def split_data_titanic(df):
     train,test = train_test_split(df,test_size = .2, random_state=123, stratify=df.survived)
     train, validate = train_test_split(train,test_size = 0.25, random_state = 123, stratify= train.survived)
     return train,validate,test
 
 def prep_titanic_data(df):
-    df = clean_data(df)
-    train,validate,test=split_data(df)
+    df = clean_data_titanic(df)
+    train,validate,test=split_data_titanic(df)
     return train,validate,test
+
+
+
+
+
+
+
+
+
+
     
 #telco data
 #clean
-def clean_data(telco):
+def clean_data_telco(telco):
     drop_columns = ["contract_type_id","internet_service_type_id","payment_type_id"]
     telco = telco.drop(columns = drop_columns)
 
@@ -73,7 +88,7 @@ def clean_data(telco):
      
     return telco
 #split
-def my_train_test_split(telco):
+def my_train_test_split_telco(telco):
 
      train, test = train_test_split(telco, test_size=.2, random_state=123, stratify=telco.churn)
      train, validate = train_test_split(train, test_size=.25, random_state=123, stratify=train.churn)
@@ -82,8 +97,8 @@ def my_train_test_split(telco):
 
 #make prep function now
 def prep_get_telco_data(telco):
-    telco = clean_data(telco)
-    train, validate, test = my_train_test_split(telco)
+    telco = clean_data_telco(telco)
+    train, validate, test = my_train_test_split_telco(telco)
     return train,validate,test
 
 
