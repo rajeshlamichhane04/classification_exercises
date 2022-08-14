@@ -19,6 +19,7 @@ def new_titanic_data():
 #from sql query first then write, read that csv
 
 def get_titanic_data():
+    
     if os.path.isfile("titanic_df.csv"):
         #open that csv 
         df = pd.read_csv("titanic_df.csv", index_col = 0)
@@ -38,7 +39,8 @@ def get_iris_data():
     filename = 'iris.csv'
     #if it finds in the repo folder, return that back to function
     if os.path.isfile(filename):
-        return pd.read_csv(filename)
+        df= pd.read_csv(filename,index_col=0 )
+        return df
     #if there is no such file, pull it from sql db as a dataframe
     else:
         df = pd.read_sql('SELECT * FROM measurements JOIN species USING(species_id);', conn('iris_db'))
@@ -56,7 +58,8 @@ def get_telco_data():
     #if present, return it back
     filename = 'telco.csv'
     if os.path.isfile(filename):
-        return pd.read_csv(filename)
+        df = pd.read_csv(filename, index_col = 0)
+        return df
     #run sql query if not present locally
     else:
         query = '''
