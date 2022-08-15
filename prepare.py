@@ -74,6 +74,9 @@ def clean_data_telco(telco):
     drop_columns = ["contract_type_id","internet_service_type_id","payment_type_id"]
     telco = telco.drop(columns = drop_columns)
 
+    telco.total_charges = telco.total_charges.str.replace(' ', '0')
+    telco.total_charges = telco.total_charges.astype(float)
+
     dummy_df = pd.get_dummies(telco[['gender','partner','dependents','phone_service','multiple_lines','online_security','online_backup','tech_support',
                                  'streaming_movies','paperless_billing','churn','payment_type', 'internet_service_type',
                                  'contract_type','device_protection','streaming_tv']], dummy_na = False, drop_first = True)
@@ -85,7 +88,11 @@ def clean_data_telco(telco):
              'contract_type', 'device_protection','streaming_tv']
 
     telco = telco.drop(columns = columns)
+
+    telco.columns = telco.columns.str.lower()
      
+    telco.columns = telco.columns.str.replace(' ','_')
+    
     return telco
 #split
 def my_train_test_split_telco(telco):
